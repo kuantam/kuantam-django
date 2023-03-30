@@ -1,6 +1,5 @@
 
 from django.db.models.query import QuerySet
-from kuantam.helpers.serializer_helpers import add_log_model
 from kuantam.helpers.custom_helpers import CustomExceptionHandler
 from kuantam.consts import STATUS_ACTIVE, CREATION_BY
 from django.db import models
@@ -18,6 +17,29 @@ class CommonModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+def add_log_model(logModel, modelInstance, modelName):
+    """_summary_
+    Args:
+        logModel (_type_): Log Model that want to create/update 
+        modelInstance (_type_): Model from which the data will be added
+        modelName (_type_): Model Name use in error showing
+    """
+    try:
+        logger.debug("Saving log model %s", modelInstance.__dict__)
+        logModel = logModel()
+        logModel.__dict__ = modelInstance.__dict__.copy()
+        logModel.id = None
+        logModel.log = modelInstance
+        # request = get_request()
+        logModel.created_by = CREATION_BY
+        logModel.creation_date = datetime.datetime.now()
+        logModel.save()
+        return logModel
+    except Exception as e:
+        logger.exception("Exception is", e)
+        raise CustomExceptionHandler(error_while_log_table_saving(f'{modelName} Log'))
 
 
 class CustomUpdateManager(QuerySet):
@@ -45,24 +67,3 @@ class CustomUpdateManager(QuerySet):
         else:
             raise CustomExceptionHandler(invalid_log_model(self.model.__name__))
         
-def add_log_model(logModel, modelInstance, modelName):
-    """_summary_
-    Args:
-        logModel (_type_): Log Model that want to create/update 
-        modelInstance (_type_): Model from which the data will be added
-        modelName (_type_): Model Name use in error showing
-    """
-    try:
-        logger.debug("Saving log model %s", modelInstance.__dict__)
-        logModel = logModel()
-        logModel.__dict__ = modelInstance.__dict__.copy()
-        logModel.id = None
-        logModel.log = modelInstance
-        # request = get_request()
-        logModel.created_by = CREATION_BY
-        logModel.creation_date = datetime.datetime.now()
-        logModel.save()
-        return logModel
-    except Exception as e:
-        logger.exception("Exception is", e)
-        raise CustomExceptionHandler(error_while_log_table_saving(f'{modelName} Log'))
