@@ -24,6 +24,12 @@ EXCEPTED = "excepted"
 
 CUSTOMER = "customer"
 ADMIN = "admin"
+####### UMS service models consts
+USER_INSTANCE_STR = "user"
+USER_EMERGENCY_INSTANCE_STR = "user emergency"
+USER_ADDRESS_INSTANCE_STR = "user address"
+USER_CONTACT_INSTANCE_STR = "user contact"
+USER_REQUIRED_OBJ = ["contact", "emergency_contact", "address"]
 
 ####### MIDDLEWARE CONSTS #######
 DEFAULT_ROLE = CUSTOMER

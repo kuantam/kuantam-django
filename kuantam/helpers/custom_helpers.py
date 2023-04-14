@@ -1,7 +1,8 @@
 import logging
+
 from kuantam.status_code import field_should_be_int_type
 from datetime import datetime
-from kuantam.consts import DATE_YYYY_MM_DD
+from kuantam.consts import DATE_YYYY_MM_DD, STATUS_ACTIVE
 import re 
 
 logger = logging.getLogger("django")
@@ -51,6 +52,21 @@ def int_float_check(label, data):
     return data
 
 
+def common_add_required_data_in_json(field, is_create=True):
+    
+    if is_create:
+        
+        field['creation_date'] = datetime.datetime.now()
+        field['status'] = STATUS_ACTIVE
+        field['created_by'] = "system"
+        
+    else:
+        field["updation_date"] = datetime.datetime.now()
+        field["updation_by"] = "system"
+
+    return field
+
+
 
 
 def common_checking_and_passing_value_from_list_dict(value, list_dict, error_label):
@@ -72,6 +88,12 @@ def common_checking_and_passing_value_from_list_dict(value, list_dict, error_lab
                 raise CustomExceptionHandler(error_label)
             return list_dict[value]
     return value
+
+
+
+def extend_updation_keys(request_keys):
+    request_keys.extend(["updation_date", "updation_by"])
+    return request_keys
 
 
 
