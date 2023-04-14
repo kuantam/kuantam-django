@@ -77,10 +77,6 @@ def common_checking_and_passing_value_from_list_dict(value, list_dict, error_lab
 
 
 
-def extend_updation_keys(request_keys):
-    request_keys.extend(["updation_date", "updation_by"])
-    return request_keys
-
 
 
 def common_date_format_check_passing_value(value, date_format, error_label):
