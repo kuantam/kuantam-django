@@ -52,20 +52,6 @@ def int_float_check(label, data):
     return data
 
 
-def common_add_required_data_in_json(field, is_create=True):
-    
-    if is_create:
-        
-        field['creation_date'] = datetime.datetime.now()
-        field['status'] = STATUS_ACTIVE
-        field['created_by'] = "system"
-        
-    else:
-        field["updation_date"] = datetime.datetime.now()
-        field["updation_by"] = "system"
-
-    return field
-
 
 
 
