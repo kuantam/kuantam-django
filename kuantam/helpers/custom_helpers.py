@@ -1,7 +1,8 @@
 import logging
+
 from kuantam.status_code import field_should_be_int_type
 from datetime import datetime
-from kuantam.consts import DATE_YYYY_MM_DD
+from kuantam.consts import DATE_YYYY_MM_DD, STATUS_ACTIVE
 import re 
 
 logger = logging.getLogger("django")
@@ -53,6 +54,7 @@ def int_float_check(label, data):
 
 
 
+
 def common_checking_and_passing_value_from_list_dict(value, list_dict, error_label):
     """
     merged two functions common_dict_checking_and_passing_value, common_list_checking
@@ -72,6 +74,8 @@ def common_checking_and_passing_value_from_list_dict(value, list_dict, error_lab
                 raise CustomExceptionHandler(error_label)
             return list_dict[value]
     return value
+
+
 
 
 

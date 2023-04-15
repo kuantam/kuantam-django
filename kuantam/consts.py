@@ -24,7 +24,7 @@ EXCEPTED = "excepted"
 
 CUSTOMER = "customer"
 ADMIN = "admin"
-
 ####### MIDDLEWARE CONSTS #######
+
 DEFAULT_ROLE = CUSTOMER
 CREATION_BY = "system"

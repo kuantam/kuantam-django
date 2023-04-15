@@ -12,9 +12,9 @@ def common_add_required_data_in_json(field, is_create=True):
         field['creation_date'] = datetime.datetime.now()
         field['status'] = STATUS_ACTIVE
         if request:
-            field['creation_by'] = request.user_id
+            field['created_by'] = request.user_id
         else:
-            field['creation_by'] = CREATION_BY
+            field['created_by'] = CREATION_BY
         
     else:
         field["updation_date"] = datetime.datetime.now()
